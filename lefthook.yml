@@ -1,0 +1,6 @@
+pre-commit:
+  parallel: true
+  commands:
+    php-cs-fixer:
+      files: git diff --name-only @{push}
+      run: ./vendor/bin/php-cs-fixer fix --dry-run {files}
