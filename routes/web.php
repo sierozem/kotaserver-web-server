@@ -1,5 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'welcome');
+
+Route::get('/auth/redirect', [AuthController::class, 'redirect'])->name('auth.redirect');
