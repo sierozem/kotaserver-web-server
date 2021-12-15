@@ -2,5 +2,5 @@ pre-commit:
   parallel: true
   commands:
     php-cs-fixer:
-      files: git diff --name-only @{push}
-      run: ./vendor/bin/php-cs-fixer fix --dry-run {files}
+      glob: '*.php'
+      run: ./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --dry-run -- {staged_files}
