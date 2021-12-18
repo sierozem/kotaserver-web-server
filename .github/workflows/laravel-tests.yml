@@ -11,6 +11,11 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+      GOOGLE_CLIENT_CALLBACK: ${{ secrets.GOOGLE_CLIENT_CALLBACK }}
+
     steps:
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
       with:

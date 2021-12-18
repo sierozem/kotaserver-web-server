@@ -1,5 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'dashboard');
+
+Route::get('/auth/redirect', [AuthController::class, 'redirect'])->name('auth.redirect');
+Route::get('/auth/callback', [AuthController::class, 'callback'])->name('auth.callback');
+Route::post('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
