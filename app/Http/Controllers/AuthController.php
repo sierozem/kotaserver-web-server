@@ -27,6 +27,12 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard'));
+        return redirect('/');
+    }
+
+    public function logout(): RedirectResponse
+    {
+        Auth::logout();
+        return redirect('/');
     }
 }

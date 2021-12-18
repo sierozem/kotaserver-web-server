@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Socialite\Facades\Socialite;
 use Mockery;
@@ -56,9 +57,9 @@ class AuthTest extends TestCase
             ->with('google')
             ->andReturn($this->provider);
 
-        $this->get(route('auth.callback'))
-            ->assertRedirect(route('dashboard'));
+        $response = $this->get(route('auth.callback'));
 
+        $response->assertRedirect('/');
         $this->assertDatabaseHas('users', [
             'provider_id' => $this->user->getId(),
             'provider_name' => 'google',
@@ -66,5 +67,22 @@ class AuthTest extends TestCase
             'email' => $this->user->getEmail(),
         ]);
         $this->assertAuthenticated();
+    }
+
+    /**
+     * @test
+     */
+    public function ログアウトできる(): void
+    {
+        /** @var User */
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        $this->assertAuthenticatedAs($user);
+
+        $response = $this->post(route('auth.logout'));
+
+        $response->assertRedirect('/');
+        $this->assertGuest();
     }
 }
